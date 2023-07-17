@@ -19,26 +19,26 @@ contract Router {
 
   /// @dev Only the pool manager may call this function
   modifier poolManagerOnly() {
-      if (msg.sender != address(poolManager)) revert NotPoolManager();
-      _;
+    if (msg.sender != address(poolManager)) revert NotPoolManager();
+    _;
   }
 
 
   constructor(IPoolManager _poolManager) {
-      poolManager = _poolManager;
+    poolManager = _poolManager;
   }
   
 
   function getHooksCalls() public pure returns (Hooks.Calls memory) {
     return Hooks.Calls({
-        beforeInitialize: true,
-        afterInitialize: true,
-        beforeModifyPosition: true,
-        afterModifyPosition: true,
-        beforeSwap: true,
-        afterSwap: true,
-        beforeDonate: true,
-        afterDonate: true
+      beforeInitialize: true,
+      afterInitialize: true,
+      beforeModifyPosition: true,
+      afterModifyPosition: true,
+      beforeSwap: true,
+      afterSwap: true,
+      beforeDonate: true,
+      afterDonate: true
     });
   }
 
