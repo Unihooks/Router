@@ -45,21 +45,23 @@ contract Router {
   
   
 
-  function beforeInitialize(address, IPoolManager.PoolKey calldata, uint160) external virtual returns (bytes4) {
+  function beforeInitialize(address, IPoolManager.PoolKey calldata, uint160) external poolManagerOnly returns (bytes4) {
     return Router.beforeInitialize.selector;
   }
 
   function afterInitialize(address, IPoolManager.PoolKey calldata, uint160, int24)
     external
-    virtual
+    poolManagerOnly
     returns (bytes4)
   {
     return Router.afterInitialize.selector;
   }
 
+
+
   function beforeModifyPosition(address, IPoolManager.PoolKey calldata, IPoolManager.ModifyPositionParams calldata)
     external
-    virtual
+    poolManagerOnly
     returns (bytes4)
   {
     return Router.beforeModifyPosition.selector;
@@ -70,13 +72,15 @@ contract Router {
     IPoolManager.PoolKey calldata,
     IPoolManager.ModifyPositionParams calldata,
     BalanceDelta
-  ) external virtual returns (bytes4) {
+  ) external poolManagerOnly returns (bytes4) {
     return Router.afterModifyPosition.selector;
   }
 
+
+
   function beforeSwap(address, IPoolManager.PoolKey calldata, IPoolManager.SwapParams calldata)
     external
-    virtual
+    poolManagerOnly
     returns (bytes4)
   {
     return Router.beforeSwap.selector;
@@ -84,18 +88,40 @@ contract Router {
 
   function afterSwap(address, IPoolManager.PoolKey calldata, IPoolManager.SwapParams calldata, BalanceDelta)
     external
-    virtual
+    poolManagerOnly
     returns (bytes4)
   {
     return Router.afterSwap.selector;
   }
 
-  function beforeDonate(address, IPoolManager.PoolKey calldata, uint256, uint256) external virtual returns (bytes4) {
+
+
+  function beforeDonate(address, IPoolManager.PoolKey calldata, uint256, uint256) external poolManagerOnly returns (bytes4) {
     return Router.beforeDonate.selector;
   }
 
-  function afterDonate(address, IPoolManager.PoolKey calldata, uint256, uint256) external virtual returns (bytes4) {
+  function afterDonate(address, IPoolManager.PoolKey calldata, uint256, uint256) external poolManagerOnly returns (bytes4) {
     return Router.afterDonate.selector;
   }
 
+
+
+
+
+
+
+
+
+
+
+    // swap fee for hook
+    function getHookSwapFee(bytes memory key) external returns (uint8){}
+
+    // withdraw fee for hook
+    function getHookWithdrawFee(bytes memory key) external returns (uint8){}
+
+
+
+    // dynamic swap fee for LP providers
+    function getFee(bytes memory key) external returns (uint24){}
 }
