@@ -42,6 +42,64 @@ contract Router {
     });
   }
 
+
+
+
+
+
+
+
+
+
+
+
+  uint8 public beforeInitializeCount;
+  uint8 public afterInitializeCount;
+  uint8 public beforeModifyPositionCount;
+  uint8 public afterModifyPositionCount;
+  uint8 public beforeSwapCount;
+  uint8 public afterSwapCount;
+  uint8 public beforeDonateCount;
+  uint8 public afterDonateCount;
+  
+  mapping(uint => mapping(uint => bytes32)) public hooksAddr;
+
+
+
+
+  function getTotalHooks(uint8 hookType) public view returns (uint8 _total){
+      if(hookType == 0){  _total = beforeInitializeCount; } 
+      else if(hookType == 1){ _total = afterInitializeCount; } 
+      else if(hookType == 2){ _total = beforeModifyPositionCount; } 
+      else if(hookType == 3){ _total = afterModifyPositionCount; } 
+      else if(hookType == 4){ _total = beforeSwapCount; } 
+      else if(hookType == 5){ _total = afterSwapCount; } 
+      else if(hookType == 6){ _total = beforeDonateCount; } 
+      else if(hookType == 7){ _total = afterDonateCount; }
+  }
+
+
+  function setTotalHooks(uint8 hookType, uint8 total) internal {
+      if(hookType == 0){ beforeInitializeCount = total; } 
+      else if(hookType == 1){ afterInitializeCount = total; } 
+      else if(hookType == 2){ beforeModifyPositionCount = total; } 
+      else if(hookType == 3){ afterModifyPositionCount = total; } 
+      else if(hookType == 4){ beforeSwapCount = total; } 
+      else if(hookType == 5){ afterSwapCount = total; } 
+      else if(hookType == 6){ beforeDonateCount = total; } 
+      else if(hookType == 7){ afterDonateCount = total; }
+  }
+
+
+
+
+
+
+
+
+
+
+
   
   
 
